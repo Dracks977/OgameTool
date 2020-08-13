@@ -94,6 +94,7 @@ app.whenReady().then(function() {
 
 
 // fleetwatch
+// ici stocker browser dans une let et close sinon il reste en mode phantomatic
 function launchMove() {
 	puppeteer.launch({ headless: true, executablePath: getChromiumExecPath() }).then(async browser => {
 		Alert.fireToast({
