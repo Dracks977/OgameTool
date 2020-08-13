@@ -1,0 +1,50 @@
+{
+  "name": "OGameAlerte",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "bin": "app.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "asar": true,
+    "asarUnpack": "node_modules/puppeteer/.local-chromium/**/*",
+    "win": {
+      "target": "portable"
+    },
+    "appId": "Dracks.OGameAlerte",
+    "extraFiles": [
+      {
+        "from": "resources",
+        "to": "resources",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dracks977/OgameTool.git"
+  },
+  "author": "Dracks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dracks977/OgameTool/issues"
+  },
+  "homepage": "https://github.com/Dracks977/OgameTool#readme",
+  "dependencies": {
+    "@sentry/electron": "^1.5.2",
+    "electron-alert": "^0.1.11",
+    "puppeteer": "^2.1.1",
+    "puppeteer-extra": "^3.1.13",
+    "puppeteer-extra-plugin-stealth": "^2.5.0"
+  },
+  "devDependencies": {
+    "electron": "^9.2.0",
+    "electron-builder": "^22.8.0"
+  }
+}
