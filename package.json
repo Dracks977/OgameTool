@@ -7,24 +7,14 @@
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder",
+    "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
-    "asar": true,
-    "asarUnpack": "node_modules/puppeteer/.local-chromium/**/*",
     "win": {
       "target": "portable"
     },
-    "appId": "Dracks.OGameAlerte",
-    "extraFiles": [
-      {
-        "from": "resources",
-        "to": "resources",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ]
+    "appId": "Dracks.OGameAlerte"
   },
   "repository": {
     "type": "git",
@@ -39,6 +29,9 @@
   "dependencies": {
     "@sentry/electron": "^1.5.2",
     "electron-alert": "^0.1.11",
+    "electron-debug": "^3.1.0",
+    "electron-store": "^6.0.0",
+    "nodemailer": "^6.4.11",
     "puppeteer": "^2.1.1",
     "puppeteer-extra": "^3.1.13",
     "puppeteer-extra-plugin-stealth": "^2.5.0"

@@ -1,0 +1,74 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../static/css/uikit.min.css" />
+  <!-- Insert this line above script imports  -->
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+  <script src="../static/js/uikit.min.js"></script>
+  <script src="../static/js/uikit-icons.min.js"></script>
+
+</head>
+<body>
+  <br>
+  <div class="uk-container">
+    <div class="uk-grid-small" uk-grid>
+      <div class="uk-width-1-2@s">
+        <input class="uk-input" id="email" type="text" placeholder="email">
+      </div>
+      <div class="uk-width-1-2@s">
+        <input class="uk-input" id="password" type="password" placeholder="password">
+      </div>
+      <div class="uk-width-1-1">
+        <label><input id="soundnotif" class="uk-checkbox" type="checkbox" checked> Sound Notification</label>
+        <label><input id="mailnotif" class="uk-checkbox" type="checkbox"> Mail Notification</label>
+      </div>
+      <div class="uk-width-1-1">
+        <label><input id="silentMode" class="uk-checkbox" type="checkbox"> Hide chromium nav (debug)</label>
+      </div>
+      <div class="uk-width-1-1">
+        <button id="send" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom">Save</button>
+      </div>
+    </div>
+
+    <div class="uk-alert-warning" uk-alert>
+      <p>Une fois Alert Watch lancé il vaux mieux éviter de se connecter a son compte car cela peut engendrer des bug (nottament si vous déconnecté le bot durant ses verif ), une contre-mesure permet au bot de relancer le processus, mais on ne sait jamais. Dans une version future les timing serons mieux gerer et permeterons d'evité ca</p>
+    </div>
+    <div class="uk-alert-primary" uk-alert>
+      <p>L'arret de Alert Watch ne se fait que a la fin d'une période de watch pour le moment donc pour etre sur qu'il ne tourne plus vous pouvez simplement quitter le programme</p>
+      <p>Des rapport d'erreurs sont collecté annonymement afin de corriger les erreurs rencontré</p>
+    </div>
+    <div class="uk-alert-danger" uk-alert>
+      <a class="uk-alert-close" uk-close></a>
+      <p>L'utilisation de se syteme comporte des risque de ban/avertisement. j'ai fait tout mon possible pour le rendre indétectable et comparable a une activité humaine, mais je décline tout responsabilité en cas de ban ou autre</p>
+    </div>   
+
+  </div>
+</body>
+<script src="../static/js/jquery.js"></script>
+<script type="text/javascript">
+  const ipc = require('electron').ipcRenderer
+  $("#send").click(_ => {
+    let obj = {
+      email: $("#email").val(),
+      password: $("#password").val(),
+      mailnotif: $("#mailnotif").prop("checked"),
+      soundnotif: $("#soundnotif").prop("checked"),
+      silentMode: $("#silentMode").prop("checked")
+    }
+    ipc.send('config', obj)
+  })
+
+  ipc.on('fillfromstore', (event, data) => {
+    console.log(data)
+    $("#email").val(data.email)
+    $("#password").val(data.password)
+    $("#mailnotif").prop("checked", data.mailnotif);
+    $("#soundnotif").prop("checked", data.soundnotif);
+    $("#silentMode").prop("checked", data.silentMode)
+  })
+</script>
+</html>
