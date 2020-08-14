@@ -84,7 +84,7 @@ function createWindow() {
 		{label: 'Stop Alert Watch', click() {
 			if (started) {
 				FleetWatch.stop();
-				started = true;
+				started = false;
 			} else {
 				Alert.fireToast({
 					position: 'bottom-end',
